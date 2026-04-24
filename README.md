@@ -22,8 +22,8 @@ Simple Python script that fetches and displays the top 10 stories from Hacker Ne
 
 Create and activate a virtual environment:
 
-    python3 -m venv hackernews_venv
-    source hackernews_venv/bin/activate
+    python3 -m venv .venv_stories
+    source .venv_stories/bin/activate
 
 Install dependencies:
 
@@ -31,4 +31,4 @@ Install dependencies:
 
 ## Run
 
-    python3 stories.py
+    python stories.py
