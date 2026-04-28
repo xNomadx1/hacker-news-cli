@@ -21,6 +21,8 @@ then sorts them by score and prints the top 10.
 
 ## Setup
 
+**Be sure to update your timezone in the code so that the greetings stay accurate when running the program**
+
 Create and activate a virtual environment:
 
     python3 -m venv .venv_stories
