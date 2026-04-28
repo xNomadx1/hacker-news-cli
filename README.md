@@ -3,7 +3,8 @@
 Simple Python script that fetches and displays the top 10 stories from Hacker News. 
 
 ## What it does
-- Fetches stories from the Hacker News API from a 50-story pool over the last 5 days, then sorts them by score and prints the top 10.
+- Fetches stories from the Hacker News API from a 50-story pool over the last 5 days, 
+then sorts them by score and prints the top 10.
 - Displays:
   - Title
   - Score
@@ -31,4 +32,4 @@ Install dependencies:
 
 ## Run
 
-    python stories.py
+    python3 stories.py
