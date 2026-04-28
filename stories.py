@@ -1,5 +1,27 @@
 import requests
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
+import time
+
+# Be sure to use your timezone for accurate user greetings
+local_tz = ZoneInfo("America/Los_Angeles")
+
+now = datetime.now(local_tz)
+current_hour = now.hour
+
+# User greetings
+if current_hour < 12:
+    greeting = "\nGood morning, user!"
+
+elif current_hour < 18:
+    greeting = "\nGood afternoon, user!"
+
+else:
+    greeting = "\nGood evening, user!"
+
+print(greeting)
+time.sleep(1)
+print("\nGive me a few moments to fetch the top stories.")
 
 base_url = "https://hacker-news.firebaseio.com/v0"
 
@@ -30,7 +52,7 @@ for story_id in story_ids[:fetch_limit]:
 stories.sort(key=lambda story: story["score"], reverse=True)
 
 for i, story in enumerate(stories[:num_to_print], start=1):
-    print(f"{i}.")
+    print(f"\n{i}.")
     print(f"Title: {story.get('title')}")
     print(f"Score: {story.get('score')}")
     print(f"By: {story.get('by')}")
