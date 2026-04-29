@@ -1,7 +1,8 @@
 import requests
+import time
+
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
-import time
 
 # Be sure to use your timezone for accurate user greetings
 local_tz = ZoneInfo("America/Los_Angeles")
