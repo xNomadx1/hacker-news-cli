@@ -11,12 +11,31 @@ then sorts them by score and prints the top 10.
   - Author
   - URL
 
+## Default config
+
+Default settings are stored in `config.toml`:
+
+    [filters]
+    num_to_print = 10
+    fetch_limit = 50
+    days_back = 5
+
+    [user_timezone]
+    timezone = "America/Los_Angeles"
+
+By default, the script:
+
+- Fetches from a 50-story pool
+- Only includes storiess from the last 5 days
+- Prints the top 10 stories after sorting by score
+- Uses the configured timezone for the greeting
+
 ## Limitations
 - Minimal implementation: does not include retries or advanced error handling
 - Designed as a lightweight example using the Hacker News public API
 
 ## Requirements
-- Python 3.8+
+- Python 3.11+
 - pip
 
 ## Setup
@@ -25,7 +44,7 @@ then sorts them by score and prints the top 10.
 
 Create and activate a virtual environment:
 
-    python3 -m venv .venv_stories
+    python3.11 -m venv .venv_stories
     source .venv_stories/bin/activate
 
 Install dependencies:
@@ -34,20 +53,38 @@ Install dependencies:
 
 ## Run
 
-Run with default filters: 
+Run with the default config settings:
+
 - python3 stories.py
 
 View available command-line options:
-- python3 stories.py --help
+
+- **python3 stories.py --help**
 
 Change the number of stories printed:
-- python3 stories.py -n, --num 5
+
+- python3 stories.py -n 5
+
+Or:
+
+- python3 stories.py --num 5
 
 Change how many top story IDs are fetched before filtering:
-- python3 stories.py -fl, --fetch-limit 100
+
+- python3 stories.py -fl 100
+
+Or:
+
+- python3 stories.py --fetch-limit 100
 
 Only show stories from the last 2 days:
-- python3 stories.py -d, --days 2
+
+- python3 stories.py -d 2
+
+Or:
+
+- python3 stories.py --days 2
 
 Alternatively, you can combine options:
+
 - python3 stories.py --num 15 --fetch-limit 100 --days 3
