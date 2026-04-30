@@ -1,8 +1,41 @@
 import requests
 import time
+import argparse
 
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
+
+# Parse command-line arguments
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Fetch and display top Hacker News stories"
+    )
+
+    parser.add_argument(
+        "--num",
+        type=int,
+        default=10,
+        help="Number of stories to print . Default: 10",
+    )
+
+    parser.add_argument(
+        "--fetch-limit",
+        type=int,
+        default=50,
+        help="Number of top story IDs to fetch before filtering. Default: 50",
+    )
+
+    parser.add_argument(
+        "--days",
+        type=int,
+        default=5,
+        help="Only show stories from the last number of days you choose. Default:5",
+    )
+
+    return parser.parse_args()
+
+args = parse_args()
+
 
 # Be sure to use your timezone for accurate user greetings
 local_tz = ZoneInfo("America/Los_Angeles")
@@ -21,14 +54,17 @@ else:
     greeting = "\nGood evening, user!"
 
 print(greeting)
+
 time.sleep(1)
+
 print("\nGive me a few moments to fetch the top stories.")
+print("Use python3 stories.py --help to view command-line options for changing the filters.")
 
 base_url = "https://hacker-news.firebaseio.com/v0"
 
-num_to_print = 10
-fetch_limit = 50
-days_back = 5
+num_to_print = args.num
+fetch_limit = args.fetch_limit
+days_back = args.days
 
 # Create the cutoff time used to filter out older stories
 cutoff_time = datetime.now(timezone.utc) - timedelta(days=days_back)
