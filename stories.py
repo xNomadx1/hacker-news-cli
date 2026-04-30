@@ -1,3 +1,5 @@
+"""Fetch and display recent top stories from Hacker News."""
+
 import requests
 import time
 import argparse
