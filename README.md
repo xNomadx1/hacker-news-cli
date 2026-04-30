@@ -41,13 +41,13 @@ View available command-line options:
 - python3 stories.py --help
 
 Change the number of stories printed:
-- python3 stories.py --num 5
+- python3 stories.py -n, --num 5
 
 Change how many top story IDs are fetched before filtering:
-- python3 stories.py --fetch-limit 100
+- python3 stories.py -fl, --fetch-limit 100
 
 Only show stories from the last 2 days:
-- python3 stories.py --days 2
+- python3 stories.py -d, --days 2
 
 Alternatively, you can combine options:
 - python3 stories.py --num 15 --fetch-limit 100 --days 3
