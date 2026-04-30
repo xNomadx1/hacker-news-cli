@@ -15,7 +15,7 @@ def parse_args():
         "--num",
         type=int,
         default=10,
-        help="Number of stories to print . Default: 10",
+        help="Number of stories to print. Default: 10",
     )
 
     parser.add_argument(
