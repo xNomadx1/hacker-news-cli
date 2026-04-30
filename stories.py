@@ -45,19 +45,18 @@ current_hour = now.hour
 
 # User greetings
 if current_hour < 12:
-    greeting = "\nGood morning, user!"
+    greeting = "\nGood morning, user"
 
 elif current_hour < 18:
-    greeting = "\nGood afternoon, user!"
+    greeting = "\nGood afternoon, user"
 
 else:
-    greeting = "\nGood evening, user!"
+    greeting = "\nGood evening, user"
 
-print(greeting)
+print(f"{greeting}, please give me a few moments to fetch the top stories.\n")
 
 time.sleep(1)
 
-print("\nGive me a few moments to fetch the top stories.")
 print("Use python3 stories.py --help to view command-line options for changing the filters.")
 
 base_url = "https://hacker-news.firebaseio.com/v0"
