@@ -12,24 +12,27 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--num",
+        "-n", "--num",
         type=int,
         default=10,
         help="Number of stories to print. Default: 10",
+        metavar="",
     )
 
     parser.add_argument(
-        "--fetch-limit",
+        "-fl", "--fetch-limit",
         type=int,
         default=50,
         help="Number of top story IDs to fetch before filtering. Default: 50",
+        metavar="",
     )
 
     parser.add_argument(
-        "--days",
+        "-d", "--days",
         type=int,
         default=5,
         help="Only show stories from the last number of days you choose. Default:5",
+        metavar="",
     )
 
     return parser.parse_args()
