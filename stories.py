@@ -3,9 +3,17 @@
 import requests
 import time
 import argparse
+import tomllib
 
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
+from pathlib import Path
+
+# Load settings from config file
+config_path = Path("config.toml")
+
+with config_path.open("rb") as file:
+    config = tomllib.load(file)
 
 # Parse command-line arguments
 def parse_args():
@@ -16,34 +24,35 @@ def parse_args():
     parser.add_argument(
         "-n", "--num",
         type=int,
-        default=10,
-        help="Number of stories to print. Default: 10",
+        default=config["filters"]["num_to_print"],
+        help="Number of stories to print. Default comes from config.toml",
         metavar="",
     )
 
     parser.add_argument(
         "-fl", "--fetch-limit",
         type=int,
-        default=50,
-        help="Number of top story IDs to fetch before filtering. Default: 50",
+        default=config["filters"]["fetch_limit"],
+        help="Number of top story IDs to fetch before filtering. Default comes from config.toml",
         metavar="",
     )
 
     parser.add_argument(
         "-d", "--days",
         type=int,
-        default=5,
-        help="Only show stories from the last number of days you choose. Default:5",
+        default=config["filters"]["days_back"],
+        help="Only show stories from the last number of days you choose. Default comes from config.toml",
         metavar="",
     )
 
     return parser.parse_args()
 
+
 args = parse_args()
 
 
 # Be sure to use your timezone for accurate user greetings
-local_tz = ZoneInfo("America/Los_Angeles")
+local_tz = ZoneInfo(config["user_timezone"]["timezone"])
 
 now = datetime.now(local_tz)
 current_hour = now.hour
