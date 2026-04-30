@@ -1,0 +1,7 @@
+[filters]
+num_to_print = 10
+fetch_limit = 50
+days_back = 5
+
+[user_timezone]
+timezone = "America/Los_Angeles"
