@@ -59,15 +59,16 @@ current_hour = now.hour
 
 # User greetings
 if current_hour < 12:
-    greeting = "\nGood morning, user"
+    greeting = "\nGood morning user,"
 
 elif current_hour < 18:
-    greeting = "\nGood afternoon, user"
+    greeting = "\nGood afternoon user,"
 
 else:
-    greeting = "\nGood evening, user"
+    greeting = "\nGood evening user,"
 
-print(f"{greeting}, please give me a few moments to fetch the top stories.\n")
+
+print(f"{greeting} please give me a few moments to fetch the top {args.num} stories.\n")
 
 num_to_print = args.num
 fetch_limit = args.fetch_limit
