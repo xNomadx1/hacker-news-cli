@@ -1,7 +1,6 @@
 """Fetch and display recent top stories from Hacker News."""
 
 import requests
-import time
 import argparse
 import tomllib
 
@@ -9,10 +8,12 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 from pathlib import Path
 
-# Load settings from config file
-config_path = Path("config.toml")
 
-with config_path.open("rb") as file:
+BASE_URL = "https://hacker-news.firebaseio.com/v0"
+CONFIG_PATH = Path("config.toml")
+
+
+with CONFIG_PATH.open("rb") as file:
     config = tomllib.load(file)
 
 # Parse command-line arguments
@@ -50,8 +51,7 @@ def parse_args():
 
 args = parse_args()
 
-
-# Be sure to use your timezone for accurate user greetings
+# Read the user's timezone from config.toml
 local_tz = ZoneInfo(config["user_timezone"]["timezone"])
 
 now = datetime.now(local_tz)
@@ -69,12 +69,6 @@ else:
 
 print(f"{greeting}, please give me a few moments to fetch the top stories.\n")
 
-time.sleep(1)
-
-print("Use python3 stories.py --help to view command-line options for changing the filters.")
-
-base_url = "https://hacker-news.firebaseio.com/v0"
-
 num_to_print = args.num
 fetch_limit = args.fetch_limit
 days_back = args.days
@@ -82,13 +76,13 @@ days_back = args.days
 # Create the cutoff time used to filter out older stories
 cutoff_time = datetime.now(timezone.utc) - timedelta(days=days_back)
 
-story_ids = requests.get(f"{base_url}/topstories.json", timeout=10).json()
+story_ids = requests.get(f"{BASE_URL}/topstories.json", timeout=10).json()
 
 stories = []
 
 # Fetch story details from the selected pool of top story IDs
 for story_id in story_ids[:fetch_limit]:
-    story = requests.get(f"{base_url}/item/{story_id}.json", timeout=10).json()
+    story = requests.get(f"{BASE_URL}/item/{story_id}.json", timeout=10).json()
 
     if "score" not in story or "time" not in story or not story.get("title"):
         continue
