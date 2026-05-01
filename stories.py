@@ -16,8 +16,8 @@ CONFIG_PATH = Path("config.toml")
 with CONFIG_PATH.open("rb") as file:
     config = tomllib.load(file)
 
-# Parse command-line arguments
 def parse_args():
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
         description="Fetch and display top Hacker News stories"
     )
