@@ -76,7 +76,13 @@ days_back = args.days
 # Create the cutoff time used to filter out older stories
 cutoff_time = datetime.now(timezone.utc) - timedelta(days=days_back)
 
-story_ids = requests.get(f"{BASE_URL}/topstories.json", timeout=10).json()
+def fetch_top_story_ids():
+    '''Fetch top story IDs from Hacker News'''
+    response = requests.get(f"{BASE_URL}/topstories.json", timeout=10)
+    response.raise_for_status()
+    return response.json()
+
+story_ids = fetch_top_story_ids()
 
 stories = []
 
