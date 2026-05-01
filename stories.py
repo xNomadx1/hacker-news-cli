@@ -77,8 +77,14 @@ days_back = args.days
 cutoff_time = datetime.now(timezone.utc) - timedelta(days=days_back)
 
 def fetch_top_story_ids():
-    '''Fetch top story IDs from Hacker News'''
+    """Fetch top story IDs from Hacker News."""
     response = requests.get(f"{BASE_URL}/topstories.json", timeout=10)
+    response.raise_for_status()
+    return response.json()
+
+def fetch_story(story_id):
+    """Fetch one story from Hacker News."""
+    response = requests.get(f"{BASE_URL}/item/{story_id}.json", timeout=10)
     response.raise_for_status()
     return response.json()
 
@@ -86,9 +92,9 @@ story_ids = fetch_top_story_ids()
 
 stories = []
 
-# Fetch story details from the selected pool of top story IDs
+# Fetch and filter story details from the selected pool of top story IDs
 for story_id in story_ids[:fetch_limit]:
-    story = requests.get(f"{BASE_URL}/item/{story_id}.json", timeout=10).json()
+    story = fetch_story(story_id)
 
     if "score" not in story or "time" not in story or not story.get("title"):
         continue
