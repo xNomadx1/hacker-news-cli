@@ -49,7 +49,7 @@ def parse_args():
     return parser.parse_args()
 
 def get_greeting():
-    """Return a greeting based on the configured timezone"""
+    """Return a greeting based on the configured timezone."""
     local_tz = ZoneInfo(config["user_timezone"]["timezone"])
     current_hour = datetime.now(local_tz).hour
 
@@ -75,6 +75,16 @@ def fetch_story(story_id):
     response = requests.get(f"{BASE_URL}/item/{story_id}.json", timeout=10)
     response.raise_for_status()
     return response.json()
+
+def print_stories(stories, num_to_print):
+    """Print selected stories to the terminal."""
+    for i, story in enumerate(stories[:num_to_print], start=1):
+        print(f"\n{i}.")
+        print(f"Title: {story.get('title')}")
+        print(f"Score: {story.get('score')}")
+        print(f"By: {story.get('by')}")
+        print(f"URL: {story.get('url')}")
+        print("-" * 60)
 
 args = parse_args()
 
@@ -108,10 +118,4 @@ for story_id in story_ids[:fetch_limit]:
 # Sort stories by score from highest to lowest
 stories.sort(key=lambda story: story["score"], reverse=True)
 
-for i, story in enumerate(stories[:num_to_print], start=1):
-    print(f"\n{i}.")
-    print(f"Title: {story.get('title')}")
-    print(f"Score: {story.get('score')}")
-    print(f"By: {story.get('by')}")
-    print(f"URL: {story.get('url')}")
-    print("-" * 60)
+print_stories(stories, num_to_print)
