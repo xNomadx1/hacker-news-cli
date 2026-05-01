@@ -48,34 +48,21 @@ def parse_args():
 
     return parser.parse_args()
 
+def get_greeting():
+    """Return a greeting based on the configured timezone"""
+    local_tz = ZoneInfo(config["user_timezone"]["timezone"])
+    current_hour = datetime.now(local_tz).hour
 
-args = parse_args()
+    # User greetings
+    if current_hour < 12:
+        return "\nGood morning user,"
 
-# Read the user's timezone from config.toml
-local_tz = ZoneInfo(config["user_timezone"]["timezone"])
+    elif current_hour < 18:
+        return "\nGood afternoon user,"
 
-now = datetime.now(local_tz)
-current_hour = now.hour
+    else:
+        return "\nGood evening user,"
 
-# User greetings
-if current_hour < 12:
-    greeting = "\nGood morning user,"
-
-elif current_hour < 18:
-    greeting = "\nGood afternoon user,"
-
-else:
-    greeting = "\nGood evening user,"
-
-
-print(f"{greeting} please give me a few moments to fetch the top {args.num} stories.\n")
-
-num_to_print = args.num
-fetch_limit = args.fetch_limit
-days_back = args.days
-
-# Create the cutoff time used to filter out older stories
-cutoff_time = datetime.now(timezone.utc) - timedelta(days=days_back)
 
 def fetch_top_story_ids():
     """Fetch top story IDs from Hacker News."""
@@ -88,6 +75,19 @@ def fetch_story(story_id):
     response = requests.get(f"{BASE_URL}/item/{story_id}.json", timeout=10)
     response.raise_for_status()
     return response.json()
+
+args = parse_args()
+
+greeting = get_greeting()
+
+print(f"{greeting} please give me a few moments to fetch the top {args.num} stories.\n")
+
+num_to_print = args.num
+fetch_limit = args.fetch_limit
+days_back = args.days
+
+# Create the cutoff time used to filter out older stories
+cutoff_time = datetime.now(timezone.utc) - timedelta(days=days_back)
 
 story_ids = fetch_top_story_ids()
 
