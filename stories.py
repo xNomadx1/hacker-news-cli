@@ -51,17 +51,18 @@ def parse_args():
 def get_greeting():
     """Return a greeting based on the configured timezone."""
     local_tz = ZoneInfo(config["user_timezone"]["timezone"])
+    user_name = config["user_name"]["name"]
     current_hour = datetime.now(local_tz).hour
 
     # User greetings
     if current_hour < 12:
-        return "\nGood morning user,"
+        return f"\nGood morning {user_name},"
 
     elif current_hour < 18:
-        return "\nGood afternoon user,"
+        return f"\nGood afternoon {user_name},"
 
     else:
-        return "\nGood evening user,"
+        return f"\nGood evening {user_name},"
 
 
 def fetch_top_story_ids():

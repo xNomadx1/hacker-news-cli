@@ -5,3 +5,6 @@ days_back = 5
 
 [user_timezone]
 timezone = "America/Los_Angeles"
+
+[user_name]
+name = "user"
