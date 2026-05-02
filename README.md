@@ -40,7 +40,7 @@ By default, the script:
 
 ## Setup
 
-**Be sure to update your timezone in the config.toml file so that the greetings stay accurate when running the program**
+**Be sure to update your timezone and username in the config.toml file so that the greetings stay accurate when running the program**
 
 Create and activate a virtual environment:
 

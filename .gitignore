@@ -1,4 +1,3 @@
-hackernews_venv/
 __pycache__/
 *.pyc
 .DS_Store
