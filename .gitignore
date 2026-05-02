@@ -1,4 +1,12 @@
+# Python bytcode files
 __pycache__/
 *.pyc
+
+# os
 .DS_Store
+
+# env
 .venv_stories/
+
+# personal files
+TODO.txt
