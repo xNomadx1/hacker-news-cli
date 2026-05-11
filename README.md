@@ -13,6 +13,8 @@ then sorts them by score and prints the top 10.
 
 ## Default config
 
+**Be sure to update your timezone and username in the config.toml file so that the greetings stay accurate when running the program**
+
 Default settings are stored in `config.toml`:
 
     [filters]
@@ -21,12 +23,15 @@ Default settings are stored in `config.toml`:
     days_back = 5
 
     [user_timezone]
-    timezone = "America/Los_Angeles"
+    timezone = "America/Los_Angeles" **Change this**
+
+    [user_name]
+    name = "user" **Add your name here**
 
 By default, the script:
 
 - Fetches from a 50-story pool
-- Only includes storiess from the last 5 days
+- Only includes stories from the last 5 days
 - Prints the top 10 stories after sorting by score
 - Uses the configured timezone for the greeting
 
@@ -39,8 +44,6 @@ By default, the script:
 - pip
 
 ## Setup
-
-**Be sure to update your timezone and username in the config.toml file so that the greetings stay accurate when running the program**
 
 Create and activate a virtual environment:
 
