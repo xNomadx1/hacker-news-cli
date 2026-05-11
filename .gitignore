@@ -10,3 +10,6 @@ __pycache__/
 
 # personal files
 TODO.txt
+
+# IDE project settings
+.idea/
