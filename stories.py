@@ -3,6 +3,7 @@
 import requests
 import argparse
 import tomllib
+import re
 
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -46,6 +47,13 @@ def parse_args():
         metavar="",
     )
 
+    parser.add_argument(
+        "-s", "--search",
+        type=str,
+        help="Only show stories with this word in the title",
+        metavar="",
+    )
+
     return parser.parse_args()
 
 def get_greeting():
@@ -83,15 +91,31 @@ def print_stories(stories, num_to_print):
         print(f"\n{i}.")
         print(f"Title: {story.get('title')}")
         print(f"Score: {story.get('score')}")
+        print(f"Age: {format_age(story_time)}")
         print(f"By: {story.get('by')}")
         print(f"URL: {story.get('url')}")
         print("-" * 60)
+
+def format_age(story_time):
+    """Return a readable age string for a hacker News story."""
+    now = datetime.now(timezone.utc)
+    age = now - story_time
+
+    days = age.days
+    hours = age.seconds // 3600
+    minutes = (age.seconds % 3600) // 60
+
+    if days > 0:
+        return f"{days} day{'s' if days != 1 else ''} ago"
+    elif hours > 0:
+        return f"{hours} hour{'s' if days != 1 else ''} ago"
+    return f"{minutes} minute{'s' if minutes != 1 else ''} ago"
 
 args = parse_args()
 
 greeting = get_greeting()
 
-print(f"{greeting} please give me a few moments to fetch the top {args.num} stories from the past {args.days} days.\n")
+print(f"{greeting} please give me a few moments to fetch the top {args.num} stories from the past {args.days} days about {args.search.title()}.\n")
 
 num_to_print = args.num
 fetch_limit = args.fetch_limit
@@ -112,6 +136,12 @@ for story_id in story_ids[:fetch_limit]:
         continue
 
     story_time = datetime.fromtimestamp(story["time"], timezone.utc)
+
+    if args.search:
+        pattern = rf"\b{re.escape(args.search)}\b"
+
+        if not re.search(pattern, story["title"], re.IGNORECASE):
+            continue
 
     if story_time >= cutoff_time:
         stories.append(story)

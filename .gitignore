@@ -7,9 +7,3 @@ __pycache__/
 
 # env
 .venv_stories/
-
-# personal files
-TODO.txt
-
-# IDE project settings
-.idea/

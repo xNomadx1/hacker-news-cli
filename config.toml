@@ -1,6 +1,6 @@
 [filters]
 num_to_print = 10
-fetch_limit = 50
+fetch_limit = 200
 days_back = 5
 
 [user_timezone]

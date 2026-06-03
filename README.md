@@ -9,7 +9,10 @@ then sorts them by score and prints the top 10.
   - Title
   - Score
   - Author
+  - Age
+  - By
   - URL
+  
 
 ## Default config
 
@@ -19,7 +22,7 @@ Default settings are stored in `config.toml`:
 
     [filters]
     num_to_print = 10
-    fetch_limit = 50
+    fetch_limit = 200
     days_back = 5
 
     [user_timezone]
@@ -30,7 +33,7 @@ Default settings are stored in `config.toml`:
 
 By default, the script:
 
-- Fetches from a 50-story pool
+- Fetches from a 200-story pool
 - Only includes stories from the last 5 days
 - Prints the top 10 stories after sorting by score
 - Uses the configured timezone for the greeting
@@ -62,7 +65,7 @@ Run with the default config settings:
 
 View available command-line options:
 
-- **python3 stories.py --help**
+- python3 stories.py --help
 
 Change the number of stories printed:
 
@@ -88,6 +91,16 @@ Or:
 
 - python3 stories.py --days 2
 
-Alternatively, you can combine options:
+Search story titles by keyword:
 
-- python3 stories.py --num 15 --fetch-limit 100 --days 3
+- python3 stories.py -s rust
+
+Or:
+
+- python3 stories.py --search rust
+
+Search is case-insensitive and matches whole words.
+
+You can combine options:
+
+- python3 stories.py --search rust --days 20 --num 15 --fetch-limit 100
