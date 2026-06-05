@@ -115,7 +115,7 @@ args = parse_args()
 
 greeting = get_greeting()
 
-print(f"{greeting} please give me a few moments to fetch the top {args.num} stories from the past {args.days} days about {args.search.title()}.\n")
+print(f"{greeting} please give me a few moments to fetch the top {args.num} stories from the past {args.days} days.\n")
 
 num_to_print = args.num
 fetch_limit = args.fetch_limit
