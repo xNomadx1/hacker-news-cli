@@ -108,8 +108,19 @@ def format_age(story_time):
     if days > 0:
         return f"{days} day{'s' if days != 1 else ''} ago"
     elif hours > 0:
-        return f"{hours} hour{'s' if days != 1 else ''} ago"
+        return f"{hours} hour{'s' if hours != 1 else ''} ago"
     return f"{minutes} minute{'s' if minutes != 1 else ''} ago"
+
+def title_matches_search(title, search_term):
+    """Return True if the title contains the search term as a whole word."""
+    escaped_search = re.escape(search_term)
+    whole_word_pattern = rf"\b{escaped_search}\b"
+
+    return re.search(
+        whole_word_pattern,
+        title,
+        re.IGNORECASE,
+    ) is not None
 
 args = parse_args()
 
@@ -137,11 +148,8 @@ for story_id in story_ids[:fetch_limit]:
 
     story_time = datetime.fromtimestamp(story["time"], timezone.utc)
 
-    if args.search:
-        pattern = rf"\b{re.escape(args.search)}\b"
-
-        if not re.search(pattern, story["title"], re.IGNORECASE):
-            continue
+    if args.search and not title_matches_search(story["title"], args.search):
+        continue
 
     if story_time >= cutoff_time:
         stories.append(story)
